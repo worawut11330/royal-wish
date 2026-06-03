@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ลงทะเบียนถวายพระพร</title>
+<style>
+    body {
+        font-family: "Sarabun", sans-serif;
+        background: #f7f7f7;
+        padding: 20px;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+        text-align: center;
+        color: #7a1c1c;
+    }
+    .checkbox-group {
+        margin: 15px 0;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #7a1c1c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #a52a2a;
+    }
+    .result {
+        margin-top: 20px;
+        padding: 15px;
+        background: #eef7ee;
+        border-radius: 8px;
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>ลงทะเบียนถวายพระพรออนไลน์<br>
+    เนื่องในโอกาสวันเฉลิมพระชนมพรรษา<br>
+    3 มิถุนายน 2569</h2>
+
+    <div class="checkbox-group">
+        <strong>เลือกคำถวายพระพร</strong>
+        <label><input type="checkbox" value="ขอพระองค์ทรงพระเจริญ ด้วยเกล้าด้วยกระหม่อม"> ขอพระองค์ทรงพระเจริญ ด้วยเกล้าด้วยกระหม่อม</label>
+        <label><input type="checkbox" value="ขอพระองค์ทรงพระเจริญยิ่งยืนนาน ด้วยเกล้าด้วยกระหม่อม"> ขอพระองค์ทรงพระเจริญยิ่งยืนนาน ด้วยเกล้าด้วยกระหม่อม</label>
+        <label><input type="checkbox" value="ขอพระราชทานถวายพระพรชัยมงคล ขอพระองค์ทรงพระเจริญ ด้วยเกล้าด้วยกระหม่อม"> ขอพระราชทานถวายพระพรชัยมงคล ขอพระองค์ทรงพระเจริญ ด้วยเกล้าด้วยกระหม่อม</label>
+    </div>
+
+    <input type="text" id="fname" placeholder="ชื่อ">
+    <input type="text" id="lname" placeholder="นามสกุล">
+    <input type="text" id="position" placeholder="ตำแหน่ง เช่น ผู้อำนวยการโรงเรียน... / ประชาชน...">
+
+    <button onclick="submitForm()">ถวายพระพร</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function submitForm() {
+    const fname = document.getElementById("fname").value;
+    const lname = document.getElementById("lname").value;
+    const position = document.getElementById("position").value;
+
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    let wishes = [];
+
+    checkboxes.forEach((cb) => {
+        wishes.push(cb.value);
+    });
+
+    if (!fname || !lname || wishes.length === 0) {
+        alert("กรุณากรอกข้อมูลให้ครบ และเลือกคำถวายพระพรอย่างน้อย 1 รายการ");
+        return;
+    }
+
+    const resultDiv = document.getElementById("result");
+
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = `
+        <h3>ข้อมูลการถวายพระพร</h3>
+        <p><strong>ชื่อ:</strong> ${fname} ${lname}</p>
+        <p><strong>ตำแหน่ง:</strong> ${position}</p>
+        <p><strong>คำถวายพระพร:</strong></p>
+        <ul>${wishes.map(w => `<li>${w}</li>`).join('')}</ul>
+        <p style="color:green;"><strong>ลงทะเบียนถวายพระพรออนไลน์เรียบร้อยแล้ว</strong></p>
+    `;
+}
+</script>
+
+</body>
+</html>
